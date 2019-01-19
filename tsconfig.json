@@ -6,15 +6,20 @@
     "jsx": "preserve",
     "importHelpers": true,
     "moduleResolution": "node",
+    "resolveJsonModule": true,
     "experimentalDecorators": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
+    "typeRoots": [
+      "./src/type-declarations"
+    ], 
     "types": [
       "webpack-env",
       "mocha",
-      "chai"
+      "chai",
+      "node"
     ],
     "paths": {
       "@/*": [
@@ -24,9 +29,10 @@
     "lib": [
       "esnext",
       "dom",
+      "es6",
       "dom.iterable",
       "scripthost"
-    ]
+    ],
   },
   "include": [
     "src/**/*.ts",

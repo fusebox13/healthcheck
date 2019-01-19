@@ -7,9 +7,10 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test:e2e": "vue-cli-service test:e2e",
-    "test:unit": "vue-cli-service test:unit"
+    "test:unit": "vue-cli-service test:unit --watch"
   },
   "dependencies": {
+    "lodash": "^4.17.11",
     "register-service-worker": "^1.5.2",
     "vue": "^2.5.21",
     "vue-class-component": "^6.0.0",
@@ -19,7 +20,9 @@
   },
   "devDependencies": {
     "@types/chai": "^4.1.0",
+    "@types/lodash": "^4.14.120",
     "@types/mocha": "^5.2.4",
+    "@types/node": "^10.12.18",
     "@vue/cli-plugin-babel": "^3.1.1",
     "@vue/cli-plugin-e2e-cypress": "^3.1.2",
     "@vue/cli-plugin-eslint": "^3.1.5",

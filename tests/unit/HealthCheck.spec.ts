@@ -5,7 +5,7 @@ import HealthCheckSurvey from "@/components/HealthCheckSurvey.vue";
 describe("HealthCheckSurvey.vue", () => {
   it("should properly load the questions from the config", () => {
     const subject = shallowMount(HealthCheckSurvey);
-    expect(subject.vm.questions).to.not.be.empty;
+    expect(subject.text()).to.equal(3)
   });
 });
  

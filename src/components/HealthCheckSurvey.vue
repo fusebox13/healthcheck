@@ -1,9 +1,10 @@
 <template>
   <div id="health-check-survey">
     <SurveyQuestion 
-    v-for="question in questions"
+    v-for="question in questionsList"
     :key="question.id"
-    :question="question.text"/>
+    :question="question.text"
+    :index="question.id"/>
   </div>
 
 </template>
@@ -13,14 +14,15 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import { AppConfiguration as Configuration } from "@/AppConfiguration.ts";
 import { HealthCheck } from "@/modules/HealthCheck";
 import SurveyQuestion from "@/components/SurveyQuestion.vue";
-
+import { mapActions, mapGetters } from "vuex";
 @Component({
   components: {
     SurveyQuestion
-  }
+  },
+  computed: mapGetters("HealthCheckStore", ["questionsList"]),
+  methods: mapActions("HealthCheckStore", ["loadQuestions"])
 })
 export default class HealthCheckSurvey extends Vue {
-  questions: Array<HealthCheck.Question> = [];
   config: Configuration;
 
   constructor() {
@@ -29,12 +31,13 @@ export default class HealthCheckSurvey extends Vue {
   }
 
   mounted() {
-    this.loadQuestions();
+    this.load();
   }
 
-  loadQuestions() {
+  load() {
+    let questions: Array<HealthCheck.Question> = [];
     this.config.questions.forEach((question, index) => {
-      this.questions.push(
+      questions.push(
         new HealthCheck.Question(
           index,
           question,
@@ -42,6 +45,7 @@ export default class HealthCheckSurvey extends Vue {
         )
       );
     });
+    this.loadQuestions(questions);
   }
 }
 </script>

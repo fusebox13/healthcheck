@@ -17,11 +17,16 @@
 <script lang="ts">
 import { Component, Prop, Vue, Emit } from "vue-property-decorator";
 import { HealthCheck } from "@/modules/HealthCheck";
-import { slice, zipObject } from "lodash";
+import { slice } from "lodash";
+import { mapState, mapMutations } from "vuex";
 
-@Component
+@Component({
+  methods: mapMutations("HealthCheckStore", ["setProficiency"]),
+  computed: { ...mapState("HealthCheckStore", ["someString"]) }
+})
 export default class SurveyQuestion extends Vue {
   @Prop() private question!: string;
+  @Prop() private index!: number;
   proficiencies: string[] = [];
   constructor() {
     super();
@@ -29,7 +34,10 @@ export default class SurveyQuestion extends Vue {
 
   @Emit()
   answer(index: number) {
-    console.log(HealthCheck.Proficiency[index]);
+    this.setProficiency({
+      index: this.index,
+      proficiency: HealthCheck.Proficiency[index]
+    });
   }
 
   mounted() {

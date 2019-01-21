@@ -1,4 +1,4 @@
-import * as questions from './questions.json'
+import * as survey from './survey.json'
 
 class AppConfiguration {
 
@@ -12,7 +12,7 @@ class AppConfiguration {
 
   static getInstance() : AppConfiguration {
     if (!AppConfiguration.instance) {
-      AppConfiguration.instance = new AppConfiguration(questions.list)
+      AppConfiguration.instance = new AppConfiguration(survey.questions)
     }
     return AppConfiguration.instance
   }

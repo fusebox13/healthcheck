@@ -1,12 +1,12 @@
 <template>
   <div id="health-check-survey">
-    <SurveyQuestion 
-    v-for="question in questionsList"
-    :key="question.id"
-    :question="question.text"
-    :index="question.id"/>
+    <SurveyQuestion
+      v-for="question in questionsList"
+      :key="question.id"
+      :question="question.text"
+      :question-id="question.id"
+    />
   </div>
-
 </template>
 
 <script lang="ts">

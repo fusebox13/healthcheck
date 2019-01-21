@@ -26,7 +26,7 @@ import { mapState, mapMutations } from "vuex";
 })
 export default class SurveyQuestion extends Vue {
   @Prop() private question!: string;
-  @Prop() private index!: number;
+  @Prop() private questionId!: number;
   proficiencies: string[] = [];
   constructor() {
     super();
@@ -35,7 +35,7 @@ export default class SurveyQuestion extends Vue {
   @Emit()
   answer(index: number) {
     this.setProficiency({
-      index: this.index,
+      questionId: this.questionId,
       proficiency: HealthCheck.Proficiency[index]
     });
   }

@@ -9,11 +9,11 @@ export class HealthCheckStore extends VuexModule {
   get questionsList() {
     return this.questions
   }
-  
+
   @Mutation populate(payload: string) { this.someString = payload}
   
-  @Mutation setProficiency({index, proficiency}:any) {
-    this.questions[index].proficiency = proficiency
+  @Mutation setProficiency({questionId, proficiency}:any) {
+    this.questions[questionId].proficiency = proficiency
   }
 
   @Mutation updateQuestionsList(questions: Array<HealthCheck.Question>) {

@@ -9,7 +9,7 @@ import Vue from 'vue'
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
-describe.only("HealthCheckSurvey.vue", () => {
+describe("SurveyQuestion.vue", () => {
   
   const store = new Vuex.Store({
     modules: {

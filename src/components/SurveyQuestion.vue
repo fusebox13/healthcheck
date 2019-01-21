@@ -45,7 +45,6 @@ export default class SurveyQuestion extends Vue {
   isActive(proficiency: number) {
     //TODO: This is an ugly side effect of improperly using enums.
     //with vuex. There must be a better way to enforce type
-
     return proficiency === this.question.proficiency;
   }
 

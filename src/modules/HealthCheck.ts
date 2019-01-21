@@ -9,6 +9,16 @@ export namespace HealthCheck {
       this.questions = questions
     }
   }
+
+  export class SurveyValidator {
+
+    static validates(survey: Survey) {
+      for(let i = 0; i < survey.questions.length; i++) {
+        if (survey.questions[i].proficiency === 0) { return false }
+      }
+      return true
+    }
+  }
   
   export class Question {
     id: number

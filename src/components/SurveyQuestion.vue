@@ -1,11 +1,13 @@
 <template>
   <div id="survey-question">
-    <section>
-      <span>{{question}}</span>
+    <section id="question">
+      <span data-qa="question-text">{{question.text}}</span>
     </section>
-    <section>
+    <section id="proficiency-buttons">
+      <!-- TODO: Clean this up -->
       <button
         v-for="(proficiency, index) in proficiencies"
+        :class="{selected: isActive(index + 1), new: true}"
         :key="index"
         @click="answer(proficiency)">
         {{proficiency}}
@@ -21,31 +23,51 @@ import { slice } from "lodash";
 import { mapState, mapMutations } from "vuex";
 
 @Component({
-  methods: mapMutations("HealthCheckStore", ["setProficiency"]),
   computed: { ...mapState("HealthCheckStore", ["someString"]) }
 })
 export default class SurveyQuestion extends Vue {
-  @Prop() private question!: string;
-  @Prop() private questionId!: number;
+  @Prop() private question!: HealthCheck.Question;
   proficiencies: string[] = [];
   constructor() {
     super();
   }
 
   @Emit()
-  answer(index: number) {
-    this.setProficiency({
-      questionId: this.questionId,
-      proficiency: HealthCheck.Proficiency[index]
+  answer(proficiency: HealthCheck.Proficiency) {
+    proficiency = proficiency || HealthCheck.Proficiency.Unknown;
+    //mapActions cannot be used with Typescript currently
+    this.$store.commit("HealthCheckStore/setProficiency", {
+      question: this.question,
+      proficiency: HealthCheck.Proficiency[proficiency]
     });
   }
 
-  mounted() {
+  isActive(proficiency: number) {
+    //TODO: This is an ugly side effect of improperly using enums.
+    //with vuex. There must be a better way to enforce type
+
+    return proficiency === this.question.proficiency;
+  }
+
+  extractProficiencies(): Array<string> {
     let proficiencies = Object.keys(HealthCheck.Proficiency);
-    this.proficiencies = slice(proficiencies, proficiencies.length / 2 + 1);
+    return slice(proficiencies, proficiencies.length / 2 + 1);
+  }
+
+  mounted() {
+    this.proficiencies = this.extractProficiencies();
   }
 }
 </script>
 
 <style scoped lang="scss">
+#survey-question {
+  #proficiency-buttons {
+    button {
+      &.selected {
+        color: red;
+      }
+    }
+  }
+}
 </style>

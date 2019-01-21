@@ -1,4 +1,14 @@
 export namespace HealthCheck {
+
+  export class Survey {
+    groupId: number
+    questions: Array<Question>
+
+    constructor(groupId: number, questions: Array<Question>) {
+      this.groupId = groupId
+      this.questions = questions
+    }
+  }
   
   export class Question {
     id: number

@@ -7,6 +7,7 @@ export class HealthCheckStore extends VuexModule {
   someString: string = 'yodawg'
   questions: Array<HealthCheck.Question> = []
   survey: HealthCheck.Survey = new HealthCheck.Survey(-1, [])
+  surveyCollection: HealthCheck.SurveyCollection = new HealthCheck.SurveyCollection()
   config: Configuration = Configuration.getInstance()
   
   get questionsList() {
@@ -15,6 +16,10 @@ export class HealthCheckStore extends VuexModule {
 
   get healthCheckSurvey() : HealthCheck.Survey {
     return this.survey
+  }
+
+  get surveyIncomplete() : boolean {
+    return !HealthCheck.SurveyValidator.validates(this.survey)
   }
   
   @Mutation setProficiency({question, proficiency}:any) {
@@ -41,7 +46,10 @@ export class HealthCheckStore extends VuexModule {
     this.survey = new HealthCheck.Survey(groupId, questions)
   }
 
-  
+  @Mutation pushSurvey(groupId: number) {
+    this.surveyCollection.addSurvey(this.survey)
+    console.log(this.surveyCollection.get(this.survey.groupId).length)
+  }
 
   @Action({commit: 'updateQuestionsList'}) loadQuestions(questions: Array<HealthCheck.Question>) {
     return questions

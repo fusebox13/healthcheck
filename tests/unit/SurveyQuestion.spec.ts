@@ -58,8 +58,11 @@ describe("SurveyQuestion.vue", () => {
     //TODO: Tests implementation details, could not get the test to work any other way
     it('should select a button when it is clicked', async () => {
       const buttons = subject.findAll('button')
-      buttons.wrappers[0].trigger('click')
-      expect(subject.vm.$store.state.HealthCheckStore.survey.questions[0].proficiency).to.equal(1);
+      for(let i = 0; i < buttons.wrappers.length; i++) {
+        buttons.wrappers[i].trigger('click')
+        expect(subject.vm.$store.state.HealthCheckStore.survey.questions[0].proficiency).to.equal(i+1);
+      }
+      
     })
   })
 

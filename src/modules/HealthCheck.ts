@@ -1,5 +1,41 @@
 export namespace HealthCheck {
 
+  export class SurveyCollection {
+    private collection:Map<number, Array<Survey>>;
+
+    constructor(){
+      this.collection = new Map<number, Array<Survey>>()
+    }
+    
+
+    addSurvey(survey: Survey){
+      if (!this.collection.has(survey!.groupId)) {
+        this.collection.set(survey!.groupId, new Array<Survey>())
+      }
+      this.collection.get(survey!.groupId)!.push(survey)
+    }
+
+    get(groupId: number) : Array<Survey> {
+      if (!this.collection.has(groupId)) { return [] }
+      return this.collection.get(groupId)!;
+    }
+  }
+
+  export class SurveyCollectionAggregator {
+
+    static getAggregates(groupId: number, collection: SurveyCollection) {
+      collection.get(1).forEach(survey => {
+        console.log(survey)
+      })
+    }
+
+  }
+
+  export class SurveyAggregate {
+    
+    
+  }
+
   export class Survey {
     groupId: number
     questions: Array<Question>

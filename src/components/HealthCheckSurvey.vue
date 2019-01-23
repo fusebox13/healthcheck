@@ -18,6 +18,7 @@ import { AppConfiguration as Configuration } from "@/AppConfiguration.ts";
 import { HealthCheck } from "@/modules/HealthCheck";
 import SurveyQuestion from "@/components/SurveyQuestion.vue";
 import { mapActions, mapGetters } from "vuex";
+import { AWS } from "@/modules/AWS";
 @Component({
   components: {
     SurveyQuestion
@@ -38,6 +39,19 @@ export default class HealthCheckSurvey extends Vue {
     super();
   }
   mounted() {
+    let item = {
+      id: "SomeSupercoolID",
+      value: "SomesupercoolValue"
+    };
+
+    let lambda: AWS.Lambda = new AWS.Lambda();
+
+    // lambda.getItems('MyTable')
+    //   .then((response:any) => response.json())
+    //   .then((response: any) => {
+    //     console.log(response)
+    //   });
+
     this.load();
   }
 

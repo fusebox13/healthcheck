@@ -1,0 +1,12 @@
+/*--------------------------------------------
+  This is a configuration file for AWS Lambda
+  It is read by the app configuration object
+  which is shared across the app
+
+  For new project setup, add your AWS Lambda
+  config urls and keys here
+----------------------------------------------*/
+{
+  "rootUrl": "",
+  "apiKey": ""
+}

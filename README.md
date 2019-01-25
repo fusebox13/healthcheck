@@ -1,5 +1,7 @@
 # healthcheck
 
+Rename aws.json.example to aws.json and provide your Lambda url and token
+
 ## Project setup
 ```
 npm install
